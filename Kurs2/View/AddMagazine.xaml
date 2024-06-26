@@ -1,0 +1,33 @@
+﻿<Window x:Class="Kurs2.View.AddMagazine"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Kurs2.View"
+        mc:Ignorable="d"
+                        Title="Добавление журнала" Height="350" Width="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" Grid.Row="0">
+            <Label Content="Введите название журнала" Margin="15" FontSize="20"/>
+            <TextBox x:Name="Number" Margin="10 0" FontSize="20" Text="{Binding Number}" />
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Row="1">
+            <Label Content="Введите дату выпуска журнала" Margin="15" FontSize="20"/>
+            <DatePicker x:Name="ReleaseDate" Margin="10 0" FontSize="20" SelectedDate="{Binding ReleaseDate}"/>
+        </StackPanel>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="57*"/>
+                <ColumnDefinition Width="143*"/>
+                <ColumnDefinition Width="200*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Сохранить" Margin="20,10,20,10" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding AddCommand}" Click="Button_Click"/>
+            <Button Content="Отмена" Margin="20,10,20,10" Grid.Column="2" Click="Button_Click_1"/>
+        </Grid>
+    </Grid>
+</Window>
