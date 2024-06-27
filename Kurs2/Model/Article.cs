@@ -9,12 +9,38 @@ public partial class Article : BaseClass
 {
     [Key]
     public int ArticleId { get; set; }
+    private int autorId;
+    public int AutorId 
+    {
+        get { return autorId; }
+        set
+        {
+            autorId = value;
+            OnPropertyChanged(nameof(AutorId));
+        }
+    }
+    private int rubricId;
 
-    public int AuthorId { get; set; }
+    public int RubricId 
+    {
+        get { return rubricId; }
+        set
+        {
+            autorId = value;
+            OnPropertyChanged(nameof(RubricId));
+        }
+    }
 
-    public int RubricsId { get; set; }
-
-    public int MagazineId { get; set; }
+    private int magazineId;
+    public int MagazineId
+    {
+        get { return magazineId; }
+        set
+        {
+            autorId = value;
+            OnPropertyChanged(nameof(MagazineId));
+        }
+    }
 
     public string? nameArticle;
     public string NameArticle

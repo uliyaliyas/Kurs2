@@ -34,13 +34,13 @@ public partial class KursDbContext : DbContext
             entity.ToTable("Article");
 
             entity.Property(e => e.ArticleId).HasColumnName("Article_Id");
-            entity.Property(e => e.AuthorId).HasColumnName("Author_Id");
+            entity.Property(e => e.AutorId).HasColumnName("Author_Id");
             entity.Property(e => e.MagazineId).HasColumnName("Magazine_Id");
             entity.Property(e => e.NameArticle).HasColumnName("Name_Article");
-            entity.Property(e => e.RubricsId).HasColumnName("Rubrics_Id");
+            entity.Property(e => e.RubricId).HasColumnName("Rubrics_Id");
 
             entity.HasOne(d => d.Author).WithMany(p => p.Articles)
-                .HasForeignKey(d => d.AuthorId)
+                .HasForeignKey(d => d.AutorId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
             entity.HasOne(d => d.Magazine).WithMany(p => p.Articles)
@@ -48,7 +48,7 @@ public partial class KursDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
             entity.HasOne(d => d.Rubrics).WithMany(p => p.Articles)
-                .HasForeignKey(d => d.RubricsId)
+                .HasForeignKey(d => d.RubricId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
         });
 

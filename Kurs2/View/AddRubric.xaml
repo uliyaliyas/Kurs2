@@ -3,26 +3,63 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:validation="clr-namespace:Kurs2.Validation"
         xmlns:local="clr-namespace:Kurs2.View"
         mc:Ignorable="d"
-                        Title="Добавление рубрики" Height="200" Width="400">
+                        Title="Добавление рубрики" Height="200" Width="400" Background="Lavender">
+    <Window.Resources>
+        <validation:NameValidationRule x:Key="nameValidation" />
+        <validation:OnlyDigitsValidationRule x:Key="onlyDigitsValidation"/>
+        <validation:NotEmpty x:Key="nameEmpty"/>
+        <validation:SelectionValidationRule x:Key="SelectValidate"/>
+        <validation:PhoneValidationRule x:Key="phoneValidate" />
+        <Style x:Key="InputControlErrors" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"    
+       Value="{Binding RelativeSource={x:Static RelativeSource.Self},    
+                       Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--Create a template to show if validation fails-->
+        <ControlTemplate x:Key="ErrorTemplate">
+            <DockPanel>
+                <Border BorderBrush="Red" BorderThickness="1" >
+                    <AdornedElementPlaceholder/>
+                </Border>
+                <TextBlock Foreground="Red" FontSize="20" Text="!" />
+            </DockPanel>
+        </ControlTemplate>
+    </Window.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Vertical" Grid.Row="0">
-            <Label Content="Введите название рубрики" Margin="10 0" FontSize="20"/>
-            <TextBox x:Name="NameRubric" Margin="10 0" FontSize="20" Text="{Binding NameRubric}" />
-        </StackPanel>
-        <Grid Grid.Row="1">
+        <TextBlock Text="Введите название рубрики" Margin="5 0" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
+        <TextBox x:Name="NameRubric" FontSize="16" Grid.Row="0" Grid.Column="1" Margin="10 0" VerticalAlignment="Center"
+ Validation.ErrorTemplate="{StaticResource ErrorTemplate}"  Style="{StaticResource InputControlErrors}">
+            <TextBox.Text>
+                <Binding Path="NameRubric" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:NameValidationRule ValidatesOnTargetUpdated="True"/>
+                        <validation:NotEmpty ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="57*"/>
-                <ColumnDefinition Width="143*"/>
-                <ColumnDefinition Width="200*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Content="Сохранить" Margin="20,10,20,10" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding AddCommand}" Click="Button_Click"/>
-            <Button Content="Отмена" Margin="20,10,20,10" Grid.Column="2" Click="Button_Click_1"/>
+            <Button Content="Сохранить" Margin="20,10,20,10" Click="Button_Click" Background="LightYellow"/>
+            <Button Content="Отмена" Margin="20,10,20,10" Click="Button_Click_1" Grid.Column="1" Background="LightYellow"/>
         </Grid>
     </Grid>
 </Window>

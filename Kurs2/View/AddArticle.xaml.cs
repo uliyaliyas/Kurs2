@@ -25,8 +25,13 @@ namespace Kurs2.View
         {
             InitializeComponent();
             Article = article;
-            Article = article;
             DataContext = Article;
+            using (KursDbContext db = new KursDbContext())
+            {
+                AutorId.ItemsSource = db.Autors.ToList();
+                MagazineId.ItemsSource = db.Magazines.ToList();
+                RubricId.ItemsSource = db.Rubrics.ToList();
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

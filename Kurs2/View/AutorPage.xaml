@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         <ListBox Grid.Row="0" Margin="10,10,10,10" x:Name="AutorContainer" 
                  ItemsSource="{Binding AutorList}"
-                 SelectedItem="{Binding SelectedAutor}" Grid.ColumnSpan="2">
+                 SelectedItem="{Binding SelectedAutor}" Grid.ColumnSpan="2" Background="Lavender">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick">
                     <i:InvokeCommandAction Command="{Binding EditCommand}"
@@ -37,7 +37,7 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="350"/>
                             <ColumnDefinition Width="200"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=Fio}" FontSize="20" TextAlignment="Center"/>
@@ -55,9 +55,9 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Content="Добавить" Command="{Binding AddCommand}" Grid.Row="0" Margin="10" />
+            <Button Content="Добавить" Command="{Binding AddCommand}" Grid.Row="0" Margin="10" Background="LightYellow"/>
             <Button Grid.Column="1" Content="Удалить" Command="{Binding DeleteCommand}"
-                   CommandParameter="{Binding ElementName=AutorContainer, Path=SelectedItem}" Margin="10"/>
+                   CommandParameter="{Binding ElementName=AutorContainer, Path=SelectedItem}" Margin="10" Background="LightYellow"/>
         </Grid>
     </Grid>
 </Page>

@@ -275,3 +275,5 @@ C:\Users\5090969\source\repos\Kurs2\Kurs2\obj\Debug\net8.0-windows\View\AddArtic
 C:\Users\5090969\source\repos\Kurs2\Kurs2\obj\Debug\net8.0-windows\View\ArticlePage.g.cs
 C:\Users\5090969\source\repos\Kurs2\Kurs2\obj\Debug\net8.0-windows\View\AddArticle.baml
 C:\Users\5090969\source\repos\Kurs2\Kurs2\obj\Debug\net8.0-windows\View\ArticlePage.baml
+C:\Users\5090969\source\repos\Kurs2\Kurs2\obj\Debug\net8.0-windows\Kurs2.sourcelink.json
+C:\Users\5090969\source\repos\Kurs2\Kurs2\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs

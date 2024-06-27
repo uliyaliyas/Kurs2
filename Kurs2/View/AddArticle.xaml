@@ -3,10 +3,49 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:validation="clr-namespace:Kurs2.Validation"
         xmlns:local="clr-namespace:Kurs2.View"
         mc:Ignorable="d"
-                        Title="Добавление статьи" Height="450" Width="400">
+                        Title="Добавление статьи" Height="500" Width="400" Background="Lavender">
+    <Window.Resources>
+        <validation:NameValidationRule x:Key="nameValidation" />
+        <validation:OnlyDigitsValidationRule x:Key="onlyDigitsValidation"/>
+        <validation:NotEmpty x:Key="nameEmpty"/>
+        <validation:SelectionValidationRule x:Key="SelectValidate"/>
+        <Style x:Key="InputControlErrors" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"    
+          Value="{Binding RelativeSource={x:Static RelativeSource.Self},    
+                          Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ComboBoxControlErrors"  TargetType="{x:Type ComboBox}" >
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" 
+                    Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                    Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--Create a template to show if validation fails-->
+        <ControlTemplate x:Key="ErrorTemplate">
+            <DockPanel>
+                <Border BorderBrush="Red" BorderThickness="1" >
+                    <AdornedElementPlaceholder/>
+                </Border>
+                <TextBlock Foreground="Red" FontSize="20" Text="!" />
+            </DockPanel>
+        </ControlTemplate>
+    </Window.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
@@ -14,35 +53,114 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Vertical" Grid.Row="0">
-            <Label Content="Введите название статьи" Margin="10 0"/>
-            <TextBox x:Name="NameArticle" Margin="10 0" FontSize="16" Text="{Binding NameArticle}" />
-        </StackPanel>
-        <StackPanel Orientation="Vertical" Grid.Row="1">
-            <Label Content="Введите дату сдачи статьи" Margin="10 0"/>
-            <DatePicker x:Name="DeliveryDate" Margin="10 0" FontSize="16" SelectedDate="{Binding DeliveryDate}"/>
-        </StackPanel>
-        <StackPanel Orientation="Vertical" Grid.Row="2">
-            <Label Content="Введите дату принятия статьи" Margin="10 0"/>
-            <DatePicker x:Name="AdoptionDate" Margin="10 0" FontSize="16" SelectedDate="{Binding AdoptionDate}"/>
-        </StackPanel>
-        <StackPanel Orientation="Vertical" Grid.Row="3">
-            <Label Content="Выберите дату опубликования статьи" Margin="10 0"/>
-            <DatePicker x:Name="PublicationDate" Margin="10 0" FontSize="16" SelectedDate="{Binding PublicationDate}"/>
-        </StackPanel>
-        <StackPanel Orientation="Vertical" Grid.Row="4">
-            <Label Content="Введите гонорар статьи" Margin="10 0"/>
-            <TextBox x:Name="Fee" Margin="10 0" FontSize="20" Text="{Binding Fee}"/>
-        </StackPanel>
-        <Grid Grid.Row="7">
+        <TextBlock Text="Введите название статьи" Margin="5 0" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
+        <TextBox x:Name="Number" FontSize="16" Grid.Row="0" Grid.Column="1" Margin="10 0" VerticalAlignment="Center"
+Validation.ErrorTemplate="{StaticResource ErrorTemplate}"  Style="{StaticResource InputControlErrors}">
+            <TextBox.Text>
+                <Binding Path="Number" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:NameValidationRule ValidatesOnTargetUpdated="True"/>
+                        <validation:NotEmpty ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBlock Text="Выберите дату сдачи статьи" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"
+    TextWrapping="WrapWithOverflow" Margin="5 0"/>
+        <DatePicker x:Name="DeliveryDate" Margin="10 0" FontSize="16" Grid.Row="1" Grid.Column="1" 
+     VerticalAlignment="Center" SelectedDate="{Binding DeliveryDate,
+                                               UpdateSourceTrigger=PropertyChanged,
+                                               ValidatesOnDataErrors=True}"/>
+        <TextBlock Text="Выберите дату принятия статьи" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"
+    TextWrapping="WrapWithOverflow" Margin="5 0"/>
+        <DatePicker x:Name="AdoptionDate" Margin="10 0" FontSize="16" Grid.Row="2" Grid.Column="1" 
+     VerticalAlignment="Center" SelectedDate="{Binding AdoptionDate,
+                                               UpdateSourceTrigger=PropertyChanged,
+                                               ValidatesOnDataErrors=True}"/>
+        <TextBlock Text="Выберите дату выпуска статьи" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center"
+    TextWrapping="WrapWithOverflow" Margin="5 0"/>
+        <DatePicker x:Name="PublicationDate" Margin="10 0" FontSize="16" Grid.Row="3" Grid.Column="1" 
+     VerticalAlignment="Center" SelectedDate="{Binding PublicationDate,
+                                               UpdateSourceTrigger=PropertyChanged,
+                                               ValidatesOnDataErrors=True}"/>
+        <TextBlock Text="Введите размер гонорара" Margin="5 0" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center"/>
+        <TextBox x:Name="Fee" Margin="10 0" FontSize="16" Grid.Row="4"
+         Grid.Column="1" 
+         VerticalAlignment="Center"
+         Validation.ErrorTemplate="{StaticResource ErrorTemplate}"  
+         Style="{StaticResource InputControlErrors}">
+            <TextBox.Text>
+                <Binding Path="Fee" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:OnlyDigitsValidationRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+        <TextBlock Text="Выберите автора" TextWrapping="WrapWithOverflow"
+           Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="5 0"/>
+        <ComboBox x:Name="AutorId" Margin="10 0" FontSize="16" Grid.Row="5" Grid.Column="1"
+                VerticalAlignment="Center"
+              DisplayMemberPath="Fio" 
+              SelectedValue="{Binding AutorId}"
+              ItemsSource="{Binding Items}"
+              SelectedValuePath="AutorId" 
+              Validation.ErrorTemplate="{StaticResource ErrorTemplate}" 
+              Style="{StaticResource ComboBoxControlErrors}">
+            <ComboBox.SelectedItem>
+                <Binding Path="AutorId" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:SelectionValidationRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.SelectedItem>
+        </ComboBox>
+        <TextBlock Text="Выберите журнал" TextWrapping="WrapWithOverflow"
+     Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="5 0"/>
+        <ComboBox x:Name="MagazineId" Margin="10 0" FontSize="16" Grid.Row="6" Grid.Column="1"
+          VerticalAlignment="Center"
+        DisplayMemberPath="Number" 
+        SelectedValue="{Binding MagazineId}"
+        ItemsSource="{Binding Items}"
+        SelectedValuePath="MagazineId" 
+        Validation.ErrorTemplate="{StaticResource ErrorTemplate}" 
+        Style="{StaticResource ComboBoxControlErrors}">
+            <ComboBox.SelectedItem>
+                <Binding Path="AutorId" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:SelectionValidationRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.SelectedItem>
+        </ComboBox>
+        <TextBlock Text="Выберите рубрику" TextWrapping="WrapWithOverflow"
+Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" Margin="5 0"/>
+        <ComboBox x:Name="RubricId" Margin="10 0" FontSize="16" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center"
+        DisplayMemberPath="NameRubric" 
+        SelectedValue="{Binding RubricId}"
+        ItemsSource="{Binding Items}"
+        SelectedValuePath="RubricId" 
+        Validation.ErrorTemplate="{StaticResource ErrorTemplate}" 
+        Style="{StaticResource ComboBoxControlErrors}">
+            <ComboBox.SelectedItem>
+                <Binding Path="RubricId" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:SelectionValidationRule ValidatesOnTargetUpdated="True"/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </ComboBox.SelectedItem>
+        </ComboBox>
+        <Grid Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="57*"/>
-                <ColumnDefinition Width="143*"/>
-                <ColumnDefinition Width="200*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Content="Сохранить" Margin="20,10,20,10" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding AddCommand}" Click="Button_Click"/>
-            <Button Content="Отмена" Margin="20,10,20,10" Grid.Column="2" Click="Button_Click_1"/>
+            <Button Content="Сохранить" Margin="20,10,20,10" Click="Button_Click" Background="LightYellow"/>
+            <Button Content="Отмена" Margin="20,10,20,10" Click="Button_Click_1" Grid.Column="1" Background="LightYellow"/>
         </Grid>
     </Grid>
 </Window>

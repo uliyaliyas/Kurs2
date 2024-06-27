@@ -11,7 +11,7 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="10*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" >
+        <Grid Grid.Column="0"  Background="Lavender">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -19,11 +19,11 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" Margin="15" Click="Button_Click_1">Главная</Button>
-            <Button Grid.Row="1" Margin="15" Click="Button_Click" >Авторы</Button>
-            <Button Grid.Row="2" Margin="15" Click="Button_Click_2">Рубрики</Button>
-            <Button Grid.Row="3" Margin="15" Click="Button_Click_3">Журналы</Button>
-            <Button Grid.Row="4" Margin="15" Click="Button_Click_4">Статьи</Button>
+            <Button Grid.Row="0" Margin="15" Click="Button_Click_1" Background="LightYellow">Главная</Button>
+            <Button Grid.Row="1" Margin="15" Click="Button_Click" Background="LightYellow">Авторы</Button>
+            <Button Grid.Row="2" Margin="15" Click="Button_Click_2" Background="LightYellow">Рубрики</Button>
+            <Button Grid.Row="3" Margin="15" Click="Button_Click_3" Background="LightYellow">Журналы</Button>
+            <Button Grid.Row="4" Margin="15" Click="Button_Click_4" Background="LightYellow">Статьи</Button>
         </Grid>
         <Frame x:Name="FrameContainer" Grid.Column="1"/>
     </Grid>
